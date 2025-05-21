@@ -1,5 +1,5 @@
 -- Made by Xella#8655
-term.setGraphicsMode(1)
+
 local libFolder = (...):match("(.-)[^%.]+$")
 local betterblittle = require(libFolder .. "betterblittle")
 
@@ -441,10 +441,11 @@ local function newBuffer(x, y, w, h)
 	end
 
 	function buffer:drawBuffer()
+		if term.getGraphicsMode() ~= 1 then term.setGraphicsMode(1) end
+		term.setFrozen(true)
 		local blitWin = self.blitWin
 		betterblittle.drawBuffer(self.colorValues, blitWin)
-		blitWin.setVisible(true)
-		blitWin.setVisible(false)
+		term.setFrozen(false)
 	end
 
 	function buffer:depthInterpolation(enabled)
