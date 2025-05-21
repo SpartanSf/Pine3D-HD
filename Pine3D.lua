@@ -17,8 +17,8 @@ local ceil = math.ceil
 local function newBuffer(x, y, w, h)
 	---@class Buffer
 	local buffer = {
-		width = w * 8,
-		height = h * 8,
+		width = w * 2,
+		height = h * 3,
 		colorValues = {},
 		depthValues = {},
 		blitWin = window.create(term.current(), x, y, w, h, false),
@@ -31,8 +31,8 @@ local function newBuffer(x, y, w, h)
 	---@param w integer the new width of the window
 	---@param h integer the new height of the window
 	function buffer:setSize(x, y, w, h)
-		self.width = w * 8
-		self.height = h * 8
+		self.width = w * 2
+		self.height = h * 3
 		self.blitWin.reposition(x, y, w, h)
 		self:clear()
 	end
@@ -1264,7 +1264,7 @@ local sqrt = math.sqrt
 ---@param h integer? the new height of the ThreeDFrame on the screen
 ---@return ThreeDFrame
 local function newFrame(x, y, w, h)
-	local term_width, term_height = term.getSize()
+	local term_width, term_height = term.getSize(1)
 	x = x or 1
 	y = y or 1
 	w = w or term_width
@@ -1282,8 +1282,8 @@ local function newFrame(x, y, w, h)
 			0,
 		},
 		buffer = newBuffer(x, y, w, h),
-		width = w * 8,
-		height = h * 8,
+		width = w * 2,
+		height = h * 3,
 	}
 	frame.FoV = 90
 	frame.camera[7] = rad(frame.FoV)
@@ -1309,8 +1309,8 @@ local function newFrame(x, y, w, h)
 	updateMappingConstants()
 
 	function frame:setSize(x, y, w, h)
-		self.width = w * 8
-		self.height = h * 8
+		self.width = w * 2
+		self.height = h * 3
 		self.buffer:setSize(x, y, w, h)
 		updateMappingConstants()
 	end
@@ -1869,8 +1869,8 @@ local function newFrame(x, y, w, h)
 		local selfX2 = self.x2
 		local selfY2 = self.y2
 
-		x = x * 8
-		y = y * 8 + 1
+		x = x * 2
+		y = y * 3 + 1
 
 		local camera = self.camera
 
