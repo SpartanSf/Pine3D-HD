@@ -163,9 +163,6 @@ local function generateWorld(ThreeDFrame, genOptions)
 		end
 	end
 
-	print("polyCount: " .. polyCount)
-	sleep(0.5)
-
 	return objects
 end
 
