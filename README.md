@@ -1,7 +1,7 @@
 # Pine3D
 Most efficient 3d graphics library for CraftOS-PC!
 
-Run the modernized installer: `https://pastebin.com/raw/EJYMFXUe`
+Run the modernized installer: `wget run https://pastebin.com/raw/EJYMFXUe`
 
 ## THIS IS A WIP!
 The problems with being ported to CraftOS-PC's graphics mode are still being resolved, and some performance issues are also being fixed.
