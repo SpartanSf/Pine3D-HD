@@ -8,3 +8,6 @@ file noise.lua noise.lua
 file models/box models/box
 file models/emerald models/emerald
 file models/pineapple models/pineapple
+file models/box.scm models/box.scm
+file models/emerald.scm models/emerald.scm
+file models/pineapple.scm models/pineapple.scm
