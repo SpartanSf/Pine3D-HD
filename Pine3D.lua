@@ -2,6 +2,7 @@
 
 local libFolder = (...):match("(.-)[^%.]+$")
 local betterblittle = require(libFolder .. "/lib/betterblittle")
+local pinepack      = require(libFolder .. "/lib/pinepack")
 
 local min = math.min
 local max = math.max
@@ -2019,6 +2020,90 @@ local function newFrame(x, y, w, h)
 			---@cast model string
 			local modelRaw = loadModel(model)
 			objModel, modelSize = loadModelRaw(modelRaw)
+		end
+
+		---@class PineObject
+		local object = {
+			x, y, z,
+			rotX, rotY, rotZ,
+			objModel, modelSize,
+		}
+		object.frame = self
+
+		---Set the object's position
+		---@param newX number?
+		---@param newY number?
+		---@param newZ number?
+		function object:setPos(newX, newY, newZ)
+			self[1] = newX or self[1]
+			self[2] = newY or self[2]
+			self[3] = newZ or self[3]
+		end
+
+		---Set the object's rotation
+		---@param newRotX number?
+		---@param newRotY number?
+		---@param newRotZ number?
+		function object:setRot(newRotX, newRotY, newRotZ)
+			self[4] = newRotX or self[4]
+			self[5] = newRotY or self[5]
+			self[6] = newRotZ or self[6]
+		end
+
+		---Set the object's position
+		---@param ref string|Model either a string (path to the model file) or Model
+		function object:setModel(ref)
+			if type(ref) == "table" then
+				---@cast ref Model
+				objModel, modelSize = loadModelRaw(ref)
+				self[7] = objModel
+				self[8] = modelSize
+			else
+				---@cast ref string
+				local modelRaw = loadModel(ref)
+				objModel, modelSize = loadModelRaw(modelRaw)
+				self[7] = objModel
+				self[8] = modelSize
+			end
+		end
+
+		if type(model) == "table" then
+			if model.initObject then
+				---@cast model LoDModel
+				model:initObject(object)
+			end
+		end
+
+		return object
+	end
+
+	---Creates a new PineObject
+	---@param model string|Model|LoDModel either a string (path to the model file) or Model or LoDModel
+	---@param x number?
+	---@param y number?
+	---@param z number?
+	---@param rotX number?
+	---@param rotY number?
+	---@param rotZ number?
+	---@return PineObject
+	function frame:newCompressedObject(model, x, y, z, rotX, rotY, rotZ)
+		local objModel = nil
+		local modelSize = nil
+
+		if type(model) == "table" then
+			if model.initObject then
+				-- @cast model LoDModel
+				-- objModel, modelSize = loadModelRaw(model)
+				-- model:initObject(object)
+			else
+				---@cast model Model
+				local modelData = pinepack.unpack_model(model)
+				objModel, modelSize = loadModelRaw(modelData)
+			end
+		else
+			---@cast model string
+			local modelData = pinepack.unpack_file(model)
+			objModel, modelSize = loadModelRaw(modelData)
 		end
 
 		---@class PineObject
