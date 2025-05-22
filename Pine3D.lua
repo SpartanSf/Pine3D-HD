@@ -1,7 +1,7 @@
 -- Made by Xella#8655
 
 local libFolder = (...):match("(.-)[^%.]+$")
-local betterblittle = require(libFolder .. "betterblittle")
+local betterblittle = require(libFolder .. "/lib/betterblittle")
 
 local min = math.min
 local max = math.max
