@@ -19,15 +19,6 @@ local function getRawLayer(layerWidth, x, y, seed)
 	return prelayer
 end
 
-local function getValueLinear(X1, X2, Y1, Y2, X3)
-	local a = (Y2 - Y1) / (X2 - X1)
-	local b = Y2 - a * X2
-
-	local Y3 = a * X3 + b
-
-	return Y3
-end
-
 local function getValueCosine(X1, X2, Y1, Y2, X3)
 	local Y3 = (1-math.cos(math.pi/(X1-X2) * (X3-X1))) / 2 * (Y2-Y1) + Y1
 
@@ -124,7 +115,7 @@ end
 
 local function compressNoiseLayers(noiseLayers)
 	local noise = {}
-	noiseSize = #noiseLayers[1]
+	local noiseSize = #noiseLayers[1]
 
 	for layerNr, layer in pairs(noiseLayers) do
 		for x = 1, noiseSize do
@@ -144,7 +135,7 @@ local function compressNoiseLayers(noiseLayers)
 	return noise
 end
 
-function createNoise(size, x, y, seed, smoothness)
+local function createNoise(size, x, y, seed, smoothness)
 	local smoothness = smoothness or 1
 	if not size then
 		error("createNoise arg#1: integer expected, got nil")

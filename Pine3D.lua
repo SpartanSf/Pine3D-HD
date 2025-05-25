@@ -1015,7 +1015,7 @@ function transforms.decimate(model, quality, mode)
 	end
 
 	-- build new model
-	---@type Model
+	--[[-@type Model]]
 	local newModel = {}
 
 	for i = 1, #triangles do
@@ -1365,6 +1365,7 @@ local function newFrame(x, y, w, h)
 		local oX = object[1]
 		local oY = object[2]
 		local oZ = object[3]
+		if not oX or not oY or not oZ then return end
 
 		local cA1 = cameraAngles[1]
 		local cA2 = cameraAngles[2]
@@ -1383,6 +1384,7 @@ local function newFrame(x, y, w, h)
 		end
 
 		local model = object[7]
+		if not model then return end
 		if #model <= 0 then
 			return
 		end
@@ -1894,6 +1896,7 @@ local function newFrame(x, y, w, h)
 			local object = objects[i]
 
 			local model = object[7]
+			if not model then return end
 
 			local rotX = object[4]
 			local rotY = object[5]
@@ -1904,6 +1907,7 @@ local function newFrame(x, y, w, h)
 			local oX = object[1]
 			local oY = object[2]
 			local oZ = object[3]
+			if not oX or not oY or not oZ then return end
 			computePolyCamDistance(model, oX, oY, oZ, camera)
 
 			local renderOffsetX = renderOffsetX
