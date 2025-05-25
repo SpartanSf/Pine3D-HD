@@ -60,7 +60,7 @@ local function loadTexture(filename)
 	return texture
 end
 
-function loadMTLFile(dir, filename)
+local function loadMTLFile(dir, filename)
 	local mtlFile = fs.open(path .. "/" .. dir .. "/" .. filename, "r")
 	local raw = mtlFile:readAll()
 	mtlFile:close()
@@ -126,7 +126,7 @@ function loadMTLFile(dir, filename)
 	}
 end
 
-function loadObjFile(id)
+local function loadObjFile(id)
 	local path = path .. "/" .. id .. "/" .. id .. ".obj"
 	print("Opening " .. path)
 	local ShrekFile = fs.open(path, "r")
