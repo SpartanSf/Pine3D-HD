@@ -124,7 +124,7 @@ end
 
 local function compressNoiseLayers(noiseLayers)
 	local noise = {}
-	noiseSize = #noiseLayers[1]
+	local noiseSize = #noiseLayers[1]
 
 	for layerNr, layer in pairs(noiseLayers) do
 		for x = 1, noiseSize do
@@ -144,7 +144,7 @@ local function compressNoiseLayers(noiseLayers)
 	return noise
 end
 
-function createNoise(size, x, y, seed, smoothness)
+local function createNoise(size, x, y, seed, smoothness)
 	local smoothness = smoothness or 1
 	if not size then
 		error("createNoise arg#1: integer expected, got nil")
