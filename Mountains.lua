@@ -168,24 +168,23 @@ end
 
 local objects = generateWorld(ThreeDFrame, genOptions)
 
+local logfile = fs.open("mountains.log", "w")
+
+local function log(text)
+	logfile.write(textutils.formatTime(os.time())..": "..(text or "nil"))
+	logfile.flush()
+end
+
 local function rendering()
-	local frames = 0
 	local lastFPSTime = 0
 	while true do
 		ThreeDFrame:drawObjects(objects)
 		ThreeDFrame:drawBuffer()
 
-		--[[frames = frames + 1
 		if os.clock() > lastFPSTime + 1 then
 			lastFPSTime = os.clock()
-			term.setBackgroundColor(colors.black)
-			term.setCursorPos(1, 1)
-			term.clearLine()
-			term.setCursorPos(1, 1)
-			term.setTextColor(colors.white)
-			term.write("Average FPS: " .. frames)
-			frames = 0
-		end]]--
+			log(ThreeDFrame.buffer.depthValues)
+		end
 
 		os.queueEvent("FakeEvent")
 		os.pullEvent("FakeEvent")
